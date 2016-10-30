@@ -1,0 +1,113 @@
+<div class="container" *ngIf="user">
+  <!-- Static navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">{{selectedWallet.state}}$ {{selectedWallet.name}}</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li [ngClass]="{ 'active': isDashboard}"><a  href="#/home" (click)="isDashboard = true">Dashboard</a></li>
+          <li [ngClass]="{ 'active': !isDashboard}"><a href="#/home" (click)="isDashboard = false;getUsers()">Users</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li (click)="logout()"><a href="#">LogOut</a></li>
+          <!--<li><a href="../navbar-static-top/">Static top</a></li>-->
+          <!--<li><a href="../navbar-fixed-top/">Fixed top</a></li>-->
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div><!--/.container-fluid -->
+  </nav>
+
+  <!-- Main component for a primary marketing message or call to action -->
+
+  <div class="jumbotron"  *ngIf="isDashboard && wallets.length">
+    <h1>Wallets</h1>
+    <md-input #name></md-input>
+    <button (click)="cretaWallet(name.value)">create wallet</button>
+    <div *ngIf="internalSelectedWallet">
+      <md-input #from placeholder="from"></md-input> --> {{internalSelectedWallet.w.name}}
+      <md-input #amount placeholder="amount"></md-input>
+      <button (click)="sendInternal(from.value, amount.value)">send</button>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Name</th>
+          <th>state</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let wallet of wallets;let i = index" (click)="internalSelectedWallet = {w: wallet, index:i}">
+          <td>{{wallet.id}}</td>
+          <td>{{wallet.name}}</td>
+          <td>{{wallet.state}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <!--<div *ngFor="let wallet of wallets">-->
+      <!--<h1>{{wallet.name}}</h1>-->
+    <!--</div>-->
+  </div>
+
+  <div class="jumbotron"  *ngIf="isDashboard && transactions.length">
+    <h1>Transaction</h1>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>from</th>
+        <th>to</th>
+        <th>amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let t of transactions">
+        <td>{{t.id}}</td>
+        <td>{{t.from}}</td>
+        <td>{{t.to}}</td>
+        <td>{{t.amount}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <!--<div *ngFor="let wallet of wallets">-->
+    <!--<h1>{{wallet.name}}</h1>-->
+    <!--</div>-->
+  </div>
+
+  <div class="jumbotron"  *ngIf="!isDashboard && users.length">
+    <h1>Users</h1>
+    <div *ngIf="transTo">
+      <md-input #from placeholder="from"></md-input> --> {{transTo.u}} ===
+      <md-input #amount placeholder="amount"></md-input>
+      <button (click)="send(from.value, amount.value)">send</button>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>pass</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of users" (click)="transTo = {w: user.selected_wallet, u: user.name}">
+        <td>{{user.id}}</td>
+        <td>{{user.name}}</td>
+        <td>{{user.pass}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <!--<div *ngFor="let wallet of wallets">-->
+    <!--<h1>{{wallet.name}}</h1>-->
+    <!--</div>-->
+  </div>
+
+</div>
