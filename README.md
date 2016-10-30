@@ -1,11 +1,14 @@
 # simpleWalletApp
-backend
-1. npm i
-2.node setup.js
-3.node app.js
-frontend
+Node run:
+```
+npm i
+configure connection to db in ./app/sequelize.js
+node setup.js (init db)
+node app.js (run app)
+```
+Client run:
+```
 1.cd client
 2.npm i
 3.npm start
-
-you need to have installed postgress with username: postgres, pass: qweasd333 and have public scheme on postgres db;
+```
