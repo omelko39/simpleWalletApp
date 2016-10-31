@@ -3,7 +3,7 @@ Node run:
 ```
 npm i
 configure connection to db in ./app/sequelize.js
-node setup.js (init db)
+node setup.js (init db, reate two users (user:pass)(user2:pass))
 node app.js (run app)
 ```
 Client run:
