@@ -42,13 +42,15 @@
           <th>id</th>
           <th>Name</th>
           <th>state</th>
+          <th>action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let wallet of wallets;let i = index" (click)="internalSelectedWallet = {w: wallet, index:i}">
+        <tr *ngFor="let wallet of wallets;let i = index">
           <td>{{wallet.id}}</td>
           <td>{{wallet.name}}</td>
           <td>{{wallet.state}}</td>
+          <td><button (click)="internalSelectedWallet = {w: wallet, index:i}">transfer</button></td>
         </tr>
       </tbody>
     </table>
@@ -89,6 +91,7 @@
       <md-input #amount placeholder="amount"></md-input>
       <button (click)="send(from.value, amount.value)">send</button>
     </div>
+    Click to user to transfer
     <table class="table">
       <thead>
       <tr>
@@ -98,10 +101,11 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users" (click)="transTo = {w: user.selected_wallet, u: user.name}">
+      <tr *ngFor="let user of users">
         <td>{{user.id}}</td>
         <td>{{user.name}}</td>
         <td>{{user.pass}}</td>
+        <td><button (click)="transTo = {w: user.selected_wallet, u: user.name}">transfer</button></td>
       </tr>
       </tbody>
     </table>
