@@ -35,7 +35,7 @@
       <select #from>
         <option *ngFor="let w of wallets" [value]="w.id">{{w.name}}</option>
       </select> --> {{internalSelectedWallet.w.name}}
-      <md-input #amount placeholder="amount"></md-input>
+      <md-input #amount type="number" placeholder="amount"></md-input>
       <button (click)="sendInternal(from.value, amount.value)">send</button>
     </div>
     <table class="table">
