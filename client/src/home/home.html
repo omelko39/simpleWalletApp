@@ -32,7 +32,9 @@
     <md-input #name></md-input>
     <button (click)="cretaWallet(name.value)">create wallet</button>
     <div *ngIf="internalSelectedWallet">
-      <md-input #from placeholder="from"></md-input> --> {{internalSelectedWallet.w.name}}
+      <select #from>
+        <option *ngFor="let w of wallets" [value]="w.id">{{w.name}}</option>
+      </select> --> {{internalSelectedWallet.w.name}}
       <md-input #amount placeholder="amount"></md-input>
       <button (click)="sendInternal(from.value, amount.value)">send</button>
     </div>
@@ -87,7 +89,11 @@
   <div class="jumbotron"  *ngIf="!isDashboard && users.length">
     <h1>Users</h1>
     <div *ngIf="transTo">
-      <md-input #from placeholder="from"></md-input> --> {{transTo.u}} ===
+      <select #from>
+        <option *ngFor="let w of wallets" [value]="w.id">{{w.name}}</option>
+      </select>
+      <!--<md-input #from placeholder="from"></md-input>-->
+       --> {{transTo.u}} ===
       <md-input #amount placeholder="amount"></md-input>
       <button (click)="send(from.value, amount.value)">send</button>
     </div>

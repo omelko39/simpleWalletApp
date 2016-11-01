@@ -23,6 +23,8 @@ export class Home {
   private isDashboard = true;
   private transTo;
   private internalSelectedWallet;
+  private selectedFrom;
+  private options;
 
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -56,7 +58,7 @@ export class Home {
       let user = data['user'];
       if (user.error) {
         localStorage.clear();
-        this.router.navigate(['/login'])
+        this.router.navigate(['/login']);
       }
       if (user.hasOwnProperty('id'))
         this.action.setUser({
@@ -81,7 +83,7 @@ export class Home {
       .subscribe(res => {
         if (res.success) {
           this.toast.success('create wallet succes');
-          this.action.addWallet(res.wallet);
+          this.action.addWallet(res['wallet']);
         }
       });
   }
@@ -98,6 +100,8 @@ export class Home {
       if (res.success === false) {
         this.toast.error(res.msg);
       } else {
+        this.transTo = false;
+        this.toast.success('Transaction success');
         this.action.getUserChanges();
         this.action.getTransaction();
       }
@@ -109,7 +113,9 @@ export class Home {
         if (res.success === false) {
         this.toast.error(res.msg);
       } else {
-        this.action.getUserChanges();
+        this.toast.success('Transaction success');
+          this.internalSelectedWallet = false;
+          this.action.getUserChanges();
         this.action.getTransaction();
       }
     });
